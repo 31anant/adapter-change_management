@@ -84,16 +84,16 @@ class ServiceNowAdapter extends EventEmitter {
   }
 
   /**
- * @memberof ServiceNowAdapter
- * @method healthcheck
- * @summary Check ServiceNow Health
- * @description Verifies external system is available and healthy.
- *   Calls method emitOnline if external system is available.
- *
- * @param {ServiceNowAdapter~requestCallback} [callback] - The optional callback
- *   that handles the response.
- */
-healthcheck(callback) {
+   * @memberof ServiceNowAdapter
+   * @method healthcheck
+   * @summary Check ServiceNow Health
+   * @description Verifies external system is available and healthy.
+   *   Calls method emitOnline if external system is available.
+   *
+   * @param {ServiceNowAdapter~requestCallback} [callback] - The optional callback
+   *   that handles the response.
+   */
+  healthcheck(callback) {
  this.getRecord((result, error) => {
    /**
     * For this lab, complete the if else conditional
@@ -114,9 +114,9 @@ healthcheck(callback) {
       * healthcheck(), execute it passing the error seen as an argument
       * for the callback's errorMessage parameter.
       */
-       this.emitOffline();
-      log.info('Service now adapter is offline {this.id}');
-      callbackError = error;
+      this.emitOffline();
+      callback = error;
+      log.debug('Service now adapter is offline {this.id}');
    } else {
      /**
       * Write this block.
@@ -129,8 +129,8 @@ healthcheck(callback) {
       * responseData parameter.
       */
       this.emitOnline();
-      callbackData = result;
-      log.info('Service now adapter is online');
+      log.debug('Service now adapter is online');
+      callback= result;
    }
  });
 }
@@ -187,6 +187,7 @@ healthcheck(callback) {
      * Note how the object was instantiated in the constructor().
      * get() takes a callback function.
      */
+     ServiceNowConnector.get(callback);
   }
 
   /**
@@ -205,6 +206,7 @@ healthcheck(callback) {
      * Note how the object was instantiated in the constructor().
      * post() takes a callback function.
      */
+     ServiceNowConnector.post(callback);
   }
 }
 
